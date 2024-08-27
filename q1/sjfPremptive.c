@@ -3,7 +3,7 @@
 
 typedef struct
 {
-    int id, at, bt, ct, rt, tat, wt, remainingTime
+    int id, at, bt, ct, rt, tat, wt, remainingTime;
 } Process;
 
 int findMin(Process p[], int n, int currentTime)
@@ -15,8 +15,12 @@ int findMin(Process p[], int n, int currentTime)
     {
         if (p[i].at <= currentTime && p[i].remainingTime > 0)
         {
-            min_remainingTime = p[i].remainingTime;
-            min_index = i;
+            if (p[i].remainingTime < min_remainingTime)
+            {
+
+                min_remainingTime = p[i].remainingTime;
+                min_index = i;
+            }
         }
     }
     return min_index;
@@ -24,7 +28,7 @@ int findMin(Process p[], int n, int currentTime)
 
 void sjf(Process p[], int n)
 {
-    int elapsed = 0, completed = 0, currentTime = 0;
+    int completed = 0, currentTime = 0;
     int total_wt = 0, total_tat = 0, total_rt = 0;
 
     printf("GANTT chart\n");
@@ -44,6 +48,7 @@ void sjf(Process p[], int n)
 
         p[min_index].remainingTime--;
         currentTime++;
+        printf("|(%d)%d(%d)", currentTime - 1, p[min_index].id, currentTime);
 
         if (p[min_index].remainingTime == 0)
         {
@@ -57,6 +62,8 @@ void sjf(Process p[], int n)
             total_wt += p[min_index].wt;
         }
     }
+
+    printf("\n");
     printf("PID\tAT\tBT\tCT\tTT\tWT\tRT\n");
     for (int i = 0; i < n; i++)
     {
@@ -72,19 +79,19 @@ int main()
 {
     int n;
 
-    printf("Enter the no of process ");
+    printf("Enter the no of process: ");
     scanf("%d", &n);
     Process process[n];
     for (int i = 0; i < n; i++)
     {
         printf("Process%d\n", i + 1);
-        printf("AT BT Priority: ");
+        printf("AT BT: ");
         scanf("%d", &process[i].at);
         scanf("%d", &process[i].bt);
         process[i].id = i + 1;
         process[i].remainingTime = process[i].bt;
         printf("\n");
     }
-    priority(process, n);
+    sjf(process, n);
     return 0;
 }
