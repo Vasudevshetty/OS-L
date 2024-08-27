@@ -57,7 +57,7 @@ void sjf(Process p[], int n)
         total_tat += p[min_index].tat;
         total_wt += p[min_index].wt;
 
-        p[min_index].completed= 1;
+        p[min_index].completed = 1;
     }
 
     printf("\n");
@@ -65,7 +65,7 @@ void sjf(Process p[], int n)
     for (int i = 0; i < n; i++)
         printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\n", p[i].id, p[i].at, p[i].bt, p[i].ct, p[i].tat, p[i].wt, p[i].rt);
 
-            printf("Average TAT = %.2f\nAverage WT = %.2f\nAverage RT = %.2f\n", (float)total_tat / n, (float)total_wt / n, (float)total_rt / n);
+    printf("Average TAT = %.2f\nAverage WT = %.2f\nAverage RT = %.2f\n", (float)total_tat / n, (float)total_wt / n, (float)total_rt / n);
 }
 
 int main()
